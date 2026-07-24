@@ -5,20 +5,20 @@ const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0a0c10"/>
-      <stop offset="1" stop-color="#12151c"/>
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef1fe"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <path d="M80 470 L1120 470" stroke="#262b36" stroke-width="1"/>
-  <g transform="translate(80,90)">
-    <rect x="0" y="0" width="52" height="52" rx="14" fill="none" stroke="#35d6a5" stroke-width="2" opacity="0.4"/>
-    <path d="M8 34 L20 34 L26 16 L34 46 L40 28 L48 28" fill="none" stroke="#35d6a5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="72" y="38" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#eef1f6">InfoSof</text>
+  <path d="M80 470 L1120 470" stroke="#e6e8f0" stroke-width="1"/>
+  <g transform="translate(80,86)">
+    <rect x="0" y="0" width="52" height="52" rx="14" fill="#4f46e5"/>
+    <path d="M12 36 L22 36 L28 18 L36 48 L42 30 L48 30" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="72" y="38" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#101828">InfoSof</text>
   </g>
-  <text x="80" y="290" font-family="Inter, sans-serif" font-size="72" font-weight="700" fill="#eef1f6" letter-spacing="-2">Observability engineers</text>
-  <text x="80" y="376" font-family="Inter, sans-serif" font-size="72" font-weight="700" fill="#35d6a5" letter-spacing="-2">actually enjoy.</text>
-  <text x="80" y="540" font-family="Inter, sans-serif" font-size="30" fill="#a7b0c0">Logs, metrics, and traces in one fast platform.</text>
+  <text x="80" y="290" font-family="Inter, sans-serif" font-size="70" font-weight="700" fill="#101828" letter-spacing="-2">Find and fix production</text>
+  <text x="80" y="374" font-family="Inter, sans-serif" font-size="70" font-weight="700" fill="#101828" letter-spacing="-2">issues in <tspan fill="#4f46e5">minutes.</tspan></text>
+  <text x="80" y="540" font-family="Inter, sans-serif" font-size="30" fill="#4b5563">One platform for logs, metrics, and traces.</text>
 </svg>`;
 
 await mkdir('public/og', { recursive: true });
