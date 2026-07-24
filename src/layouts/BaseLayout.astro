@@ -1,0 +1,80 @@
+---
+import '@/styles/global.css';
+import { site } from '@/config/site';
+import SEO from '@/components/SEO.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** Extra structured data for this page, merged with the site-wide Organization. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, canonical, ogImage, ogType, noindex, schema } =
+  Astro.props;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${site.url}/#organization`,
+  name: site.legalName,
+  alternateName: site.name,
+  url: site.url,
+  logo: `${site.url}/icon.svg`,
+  description: site.description,
+  foundingDate: String(site.foundingYear),
+  email: site.email,
+  sameAs: Object.values(site.social),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: site.supportEmail,
+    telephone: site.phone,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: site.address.country,
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0a0c10" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+    />
+    <JsonLd schema={organization} />
+    {schema && <JsonLd schema={schema} />}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
