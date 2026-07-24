@@ -26,10 +26,12 @@ const { title, summary, icon, as: Heading = 'h3' } = Astro.props;
     border-radius: var(--radius-lg);
     padding: var(--space-5);
     height: 100%;
-    transition: border-color 0.15s var(--ease), transform 0.15s var(--ease);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s var(--ease), border-color 0.15s var(--ease), transform 0.15s var(--ease);
   }
   .feature-card:hover {
     border-color: var(--border-strong);
+    box-shadow: var(--shadow);
     transform: translateY(-2px);
   }
   .feature-card__icon {

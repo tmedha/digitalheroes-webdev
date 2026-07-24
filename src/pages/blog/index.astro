@@ -73,7 +73,7 @@ const blogSchema = {
     padding-block: var(--space-8) var(--space-6);
     background-image: radial-gradient(
       70% 60% at 15% -10%,
-      rgba(53, 214, 165, 0.1),
+      rgba(79, 70, 229, 0.08),
       transparent 60%
     );
   }
@@ -96,10 +96,13 @@ const blogSchema = {
     padding: var(--space-5);
     display: grid;
     gap: var(--space-2);
-    transition: border-color 0.15s var(--ease);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s var(--ease), border-color 0.15s var(--ease), transform 0.15s var(--ease);
   }
   .post-card:hover {
     border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
   }
   .post-card__meta {
     font-size: var(--text-sm);

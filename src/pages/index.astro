@@ -99,7 +99,7 @@ const webSite = {
     </div>
   </section>
 
-  <section class="section trust">
+  <section class="section section--tint trust">
     <div class="container">
       <p class="trust__label muted">Trusted by engineering teams at fast-moving companies</p>
       <ul class="trust__logos" aria-label="Customer names">
@@ -154,7 +154,7 @@ const webSite = {
     </div>
   </section>
 
-  <section class="section" aria-labelledby="how-heading">
+  <section class="section section--tint" aria-labelledby="how-heading">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Correlated by design</span>
@@ -210,7 +210,7 @@ const webSite = {
     padding-block: var(--space-8) var(--space-7);
     background-image: radial-gradient(
       70% 60% at 15% -10%,
-      rgba(53, 214, 165, 0.1),
+      rgba(79, 70, 229, 0.08),
       transparent 60%
     );
   }
@@ -369,6 +369,7 @@ const webSite = {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
   .stat__value {
     font-size: var(--text-3xl);
@@ -393,6 +394,7 @@ const webSite = {
     padding: var(--space-5);
     display: grid;
     gap: var(--space-2);
+    box-shadow: var(--shadow-sm);
   }
   .step__num {
     display: inline-flex;

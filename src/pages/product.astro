@@ -81,7 +81,7 @@ const softwareApp = {
     </div>
   </section>
 
-  <section id="reliability" class="section split">
+  <section id="reliability" class="section section--tint split">
     <div class="container split__inner">
       <div>
         <span class="eyebrow">Reliability</span>
@@ -98,14 +98,20 @@ const softwareApp = {
         </ul>
       </div>
       <div id="docs" class="panel">
-        <h3>Developer-first from day one</h3>
-        <p class="muted">Point any OTLP exporter at InfoSof and start sending data.</p>
-        <pre class="codeblock"><code><span class="c-dim"># OpenTelemetry collector</span>
-exporters:
-  otlp:
-    endpoint: <span class="c-acc">ingest.infosof.io:4317</span>
-    headers:
-      api-key: <span class="c-acc">$INFOSOF_API_KEY</span></code></pre>
+        <h3>Up and running in minutes</h3>
+        <p class="muted">
+          Point any OpenTelemetry exporter at InfoSof and data starts flowing.
+          There is no proprietary agent to install or maintain.
+        </p>
+        <div class="connect">
+          <div class="connect__field">
+            <span class="connect__label">OTLP endpoint</span>
+            <span class="connect__value">ingest.infosof.io</span>
+          </div>
+          <div class="connect__status">
+            <span class="connect__dot"></span>Receiving data
+          </div>
+        </div>
         <p class="muted panel__foot">
           Full documentation, SDKs for every major language, and a Terraform
           provider are included on every plan.
@@ -137,7 +143,7 @@ exporters:
     padding-block: var(--space-8) var(--space-6);
     background-image: radial-gradient(
       70% 60% at 15% -10%,
-      rgba(53, 214, 165, 0.1),
+      rgba(79, 70, 229, 0.08),
       transparent 60%
     );
   }
@@ -196,27 +202,52 @@ exporters:
     padding: var(--space-5);
     display: grid;
     gap: var(--space-3);
+    box-shadow: var(--shadow-sm);
   }
   .panel h3 {
     font-size: var(--text-lg);
   }
-  .codeblock {
-    margin: 0;
+  .connect {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
     padding: var(--space-4);
-    background: #0d1017;
+    background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+  }
+  .connect__field {
+    display: grid;
+    gap: 2px;
+  }
+  .connect__label {
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+  .connect__value {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-    overflow-x: auto;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+  .connect__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--success);
+  }
+  .connect__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
   }
   .panel__foot {
     font-size: var(--text-sm);
   }
-  .c-dim { color: var(--text-faint); }
-  .c-acc { color: var(--accent); }
 
   .chips {
     list-style: none;
@@ -231,8 +262,9 @@ exporters:
     border: 1px solid var(--border);
     border-radius: var(--radius-full);
     font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--text-muted);
-    font-family: var(--font-mono);
+    box-shadow: var(--shadow-sm);
   }
 
   @media (min-width: 48rem) {
