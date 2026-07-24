@@ -1,0 +1,153 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/config/site';
+
+const description =
+  'Get in touch with the InfoSof team. Start a free trial, ask a question, or talk to sales about Enterprise plans.';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact InfoSof',
+  url: `${site.url}/contact/`,
+  description,
+  mainEntity: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="Contact"
+  description={description}
+  canonical="/contact/"
+  schema={contactSchema}
+>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Talk to the InfoSof team</h1>
+      <p class="lead">
+        Whether you want a guided demo, help migrating, or an Enterprise quote,
+        we usually reply within one business day.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="contact-heading">
+    <div class="container contact-layout">
+      <div>
+        <h2 id="contact-heading">Send us a message</h2>
+        <p class="muted contact-intro">
+          Fill in the form and the right person will get back to you.
+        </p>
+        <ContactForm />
+      </div>
+
+      <aside class="contact-aside" aria-label="Other ways to reach us">
+        <h2 class="contact-aside__title">Other ways to reach us</h2>
+        <ul class="contact-methods" role="list">
+          <li>
+            <span class="contact-methods__icon"><Icon name="bolt" size={20} /></span>
+            <div>
+              <strong>Sales</strong>
+              <p class="muted"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-methods__icon"><Icon name="shield" size={20} /></span>
+            <div>
+              <strong>Support</strong>
+              <p class="muted"><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-methods__icon"><Icon name="clock" size={20} /></span>
+            <div>
+              <strong>Response time</strong>
+              <p class="muted">Within one business day, Monday to Friday.</p>
+            </div>
+          </li>
+        </ul>
+        <address class="contact-address muted">
+          {site.legalName}<br />
+          {site.address.street}<br />
+          {site.address.city}, {site.address.region} {site.address.postalCode}
+        </address>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-8) var(--space-6);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .page-hero h1 {
+    margin-block: var(--space-3);
+  }
+  .page-hero .lead {
+    max-width: 55ch;
+  }
+  .contact-layout {
+    display: grid;
+    gap: var(--space-7);
+    align-items: start;
+  }
+  .contact-intro {
+    margin-block: var(--space-2) var(--space-5);
+  }
+  .contact-aside {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+  .contact-aside__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+  .contact-methods {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .contact-methods li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  .contact-methods__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .contact-methods p {
+    font-size: var(--text-sm);
+  }
+  .contact-address {
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+    font-style: normal;
+    font-size: var(--text-sm);
+    line-height: 1.7;
+  }
+  @media (min-width: 52rem) {
+    .contact-layout {
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+</style>

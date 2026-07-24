@@ -1,0 +1,206 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/config/site';
+
+const description =
+  'InfoSof was founded in 2021 to give engineering teams observability that is fast, correlated, and built on open standards.';
+
+const values = [
+  {
+    title: 'Open by default',
+    body: 'We build on OpenTelemetry and open standards so your data and instrumentation stay yours.',
+  },
+  {
+    title: 'Speed is a feature',
+    body: 'During an incident, seconds matter. Every part of InfoSof is built to be fast under pressure.',
+  },
+  {
+    title: 'Signal over noise',
+    body: 'We help teams focus on the few signals that matter instead of drowning in dashboards.',
+  },
+];
+
+const team = [
+  { name: 'Sarah Okafor', role: 'Co-founder & CEO' },
+  { name: 'Diego Fuentes', role: 'Co-founder & CTO' },
+  { name: 'Priya Nair', role: 'VP Product' },
+  { name: 'Marcus Bell', role: 'VP Engineering' },
+];
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About InfoSof',
+  url: `${site.url}/about/`,
+  description,
+  mainEntity: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="About"
+  description={description}
+  canonical="/about/"
+  schema={aboutSchema}
+>
+  <section class="section page-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">About</span>
+      <h1>Observability that engineers actually enjoy</h1>
+      <p class="lead">
+        We started InfoSof in {site.foundingYear} after years of fighting slow,
+        fragmented monitoring tools during production incidents. We knew there
+        had to be a better way.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="story-heading">
+    <div class="container container--narrow prose">
+      <h2 id="story-heading">Our story</h2>
+      <p>
+        Every founder of InfoSof has been on the wrong end of a 3am page, jumping
+        between three different tools trying to piece together what went wrong. The
+        data existed, but it lived in separate silos that never talked to each other.
+      </p>
+      <p>
+        So we built the platform we wished we had: one place where logs, metrics,
+        and traces are correlated from the moment they arrive, built on open
+        standards so teams are never locked in. Today, engineering teams around the
+        world use InfoSof to find and fix issues faster.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="values-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What we believe</span>
+        <h2 id="values-heading">Our values</h2>
+      </div>
+      <ul class="grid grid--3" role="list">
+        {
+          values.map((v) => (
+            <li class="value-card">
+              <h3>{v.title}</h3>
+              <p class="muted">{v.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="team-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The team</span>
+        <h2 id="team-heading">People behind InfoSof</h2>
+      </div>
+      <ul class="team" role="list">
+        {
+          team.map((m) => (
+            <li class="team-member">
+              <span class="team-member__avatar" aria-hidden="true">
+                {m.name.split(' ').map((n) => n[0]).join('')}
+              </span>
+              <strong>{m.name}</strong>
+              <span class="muted">{m.role}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Come see what we built"
+    text="Start a free trial and put InfoSof to work on your own systems."
+  />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-8) var(--space-6);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .page-hero h1 {
+    margin-block: var(--space-3);
+  }
+  .prose {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .prose h2 {
+    margin-bottom: var(--space-2);
+  }
+  .prose p {
+    color: var(--text-muted);
+    max-width: 65ch;
+  }
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+  .value-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+  .team {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-member {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    justify-items: center;
+  }
+  .team-member__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  @media (min-width: 48rem) {
+    .grid--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .team {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

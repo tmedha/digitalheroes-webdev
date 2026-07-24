@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PriceCard from '@/components/PriceCard.astro';
+import FaqList from '@/components/FaqList.astro';
+import Button from '@/components/Button.astro';
+import { site } from '@/config/site';
+
+const plans = (await getCollection('plans')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+// Show the first four FAQs on pricing; the full set lives on /faq.
+const faqs = (await getCollection('faqs'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const description =
+  'Simple, usage-based pricing for InfoSof. Start free, scale on the Team plan, or talk to us about Enterprise. Every plan includes logs, metrics, and tracing.';
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `${site.name} Observability Platform`,
+  description,
+  brand: { '@type': 'Brand', name: site.name },
+  offers: plans.map((p) => ({
+    '@type': 'Offer',
+    name: `${p.data.name} plan`,
+    price: String(p.data.price),
+    priceCurrency: p.data.currency,
+    url: `${site.url}/pricing/`,
+    availability: 'https://schema.org/InStock',
+  })),
+};
+---
+
+<BaseLayout
+  title="Pricing"
+  description={description}
+  canonical="/pricing/"
+  schema={productSchema}
+>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Pricing</span>
+      <h1>Pricing that scales with your data, not your headcount</h1>
+      <p class="lead">
+        Every plan includes logs, metrics, and distributed tracing. You are billed
+        on the data you ingest and retain, never per host or per seat.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="plans-heading">
+    <div class="container">
+      <h2 id="plans-heading" class="visually-hidden">Plans</h2>
+      <ul class="plans" role="list">
+        {
+          plans.map((p) => (
+            <li>
+              <PriceCard
+                name={p.data.name}
+                price={p.data.price}
+                priceUnit={p.data.priceUnit}
+                currency={p.data.currency}
+                tagline={p.data.tagline}
+                features={p.data.features}
+                cta={p.data.cta}
+                highlighted={p.data.highlighted}
+              />
+            </li>
+          ))
+        }
+      </ul>
+      <p class="plans__note muted">
+        All prices in USD. Annual billing saves 20%. Need something custom?
+        <a href="/contact/">Talk to sales</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pricing-faq-heading">
+    <div class="container container--narrow">
+      <div class="section-head">
+        <span class="eyebrow">Questions</span>
+        <h2 id="pricing-faq-heading">Pricing questions, answered</h2>
+      </div>
+      <FaqList items={faqs.map((f) => f.data)} />
+      <p class="faq-more">
+        <Button href="/faq/" variant="ghost">See all FAQs</Button>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-8) var(--space-6);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .page-hero h1 {
+    margin-block: var(--space-3);
+    max-width: 20ch;
+  }
+  .page-hero .lead {
+    max-width: 60ch;
+  }
+  .plans {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+  .plans__note {
+    margin-top: var(--space-5);
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+  .section-head {
+    margin-bottom: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .faq-more {
+    margin-top: var(--space-4);
+  }
+  @media (min-width: 52rem) {
+    .plans {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
+  }
+</style>

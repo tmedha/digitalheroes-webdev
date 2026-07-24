@@ -1,0 +1,246 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FeatureCard from '@/components/FeatureCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/config/site';
+
+const features = (await getCollection('features')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const integrations = [
+  'OpenTelemetry',
+  'Kubernetes',
+  'AWS',
+  'PostgreSQL',
+  'Kafka',
+  'GitHub Actions',
+  'PagerDuty',
+  'Slack',
+];
+
+const description =
+  'InfoSof is an OpenTelemetry-native observability platform that unifies logs, metrics, and distributed tracing with one-click correlation, smart alerting, and shareable dashboards.';
+
+const softwareApp = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.name,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web',
+  url: `${site.url}/product/`,
+  description,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Free Starter plan with paid Team and Enterprise tiers.',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    reviewCount: '214',
+  },
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="Product"
+  description={description}
+  canonical="/product/"
+  schema={softwareApp}
+>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Product</span>
+      <h1>One platform for logs, metrics, and traces</h1>
+      <p class="lead">{description}</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="capabilities-heading">
+    <div class="container">
+      <h2 id="capabilities-heading" class="visually-hidden">Capabilities</h2>
+      <ul class="grid grid--3" role="list">
+        {
+          features.map((f) => (
+            <li>
+              <FeatureCard
+                title={f.data.title}
+                summary={f.data.summary}
+                icon={f.data.icon}
+                as="h3"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="reliability" class="section split">
+    <div class="container split__inner">
+      <div>
+        <span class="eyebrow">Reliability</span>
+        <h2>Built to stay up when you need it most</h2>
+        <p class="lead">
+          Observability is only useful if it is there during an incident. InfoSof
+          runs on redundant, multi-region infrastructure with a 99.9% uptime SLA
+          for Enterprise customers.
+        </p>
+        <ul class="checklist" role="list">
+          <li><Icon name="check" size={18} /> Multi-region, redundant ingest pipeline</li>
+          <li><Icon name="check" size={18} /> Independent status page and incident history</li>
+          <li><Icon name="check" size={18} /> Automatic backpressure so you never drop critical data</li>
+        </ul>
+      </div>
+      <div id="docs" class="panel">
+        <h3>Developer-first from day one</h3>
+        <p class="muted">Point any OTLP exporter at InfoSof and start sending data.</p>
+        <pre class="codeblock"><code><span class="c-dim"># OpenTelemetry collector</span>
+exporters:
+  otlp:
+    endpoint: <span class="c-acc">ingest.infosof.io:4317</span>
+    headers:
+      api-key: <span class="c-acc">$INFOSOF_API_KEY</span></code></pre>
+        <p class="muted panel__foot">
+          Full documentation, SDKs for every major language, and a Terraform
+          provider are included on every plan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="integrations-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Integrations</span>
+        <h2 id="integrations-heading">Works with the tools you already run</h2>
+      </div>
+      <ul class="chips" role="list">
+        {integrations.map((name) => <li class="chip">{name}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Ready to see it in action?"
+    text="Start a free trial and connect your first service in minutes."
+  />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-8) var(--space-6);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .page-hero h1 {
+    margin-block: var(--space-3);
+    max-width: 18ch;
+  }
+  .page-hero .lead {
+    max-width: 60ch;
+  }
+
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  .split__inner {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .split h2 {
+    margin-block: var(--space-3);
+  }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-4);
+    display: grid;
+    gap: var(--space-3);
+    color: var(--text-muted);
+  }
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .checklist :global(svg) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .panel h3 {
+    font-size: var(--text-lg);
+  }
+  .codeblock {
+    margin: 0;
+    padding: var(--space-4);
+    background: #0d1017;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    overflow-x: auto;
+  }
+  .panel__foot {
+    font-size: var(--text-sm);
+  }
+  .c-dim { color: var(--text-faint); }
+  .c-acc { color: var(--accent); }
+
+  .chips {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .chip {
+    padding: var(--space-2) var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .split__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

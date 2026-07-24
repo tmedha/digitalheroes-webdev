@@ -1,0 +1,141 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site } from '@/config/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const description =
+  'Practical writing on observability, OpenTelemetry, incident response, and keeping production systems healthy, from the InfoSof team.';
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `${site.name} Blog`,
+  url: `${site.url}/blog/`,
+  description,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="Blog"
+  description={description}
+  canonical="/blog/"
+  schema={blogSchema}
+>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1>Notes on observability</h1>
+      <p class="lead">{description}</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="posts-heading">
+    <div class="container">
+      <h2 id="posts-heading" class="visually-hidden">All posts</h2>
+      <ul class="post-list" role="list">
+        {
+          posts.map((post) => (
+            <li class="post-card">
+              <p class="post-card__meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {fmt(post.data.pubDate)}
+                </time>
+                <span aria-hidden="true"> · </span>
+                <span>{post.data.author}</span>
+              </p>
+              <h3 class="post-card__title">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              </h3>
+              <p class="muted">{post.data.description}</p>
+              <ul class="post-card__tags" aria-label="Tags">
+                {post.data.tags.map((t) => (
+                  <li class="tag">{t}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-8) var(--space-6);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .page-hero h1 {
+    margin-block: var(--space-3);
+  }
+  .page-hero .lead {
+    max-width: 60ch;
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .post-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+    transition: border-color 0.15s var(--ease);
+  }
+  .post-card:hover {
+    border-color: var(--border-strong);
+  }
+  .post-card__meta {
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+  }
+  .post-card__title {
+    font-size: var(--text-xl);
+  }
+  .post-card__title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .post-card__title a:hover {
+    color: var(--accent);
+  }
+  .post-card__tags {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .tag {
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: 0.15rem 0.6rem;
+  }
+  @media (min-width: 48rem) {
+    .post-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

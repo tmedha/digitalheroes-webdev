@@ -1,0 +1,377 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import FeatureCard from '@/components/FeatureCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/config/site';
+
+const features = (await getCollection('features')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const stats = [
+  { value: '<1s', label: 'search across terabytes' },
+  { value: '50%', label: 'lower mean time to resolution' },
+  { value: '15mo', label: 'metric retention by default' },
+  { value: '99.9%', label: 'uptime SLA on Enterprise' },
+];
+
+const webSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title={site.name}
+  description={site.description}
+  canonical="/"
+  schema={webSite}
+>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="badge">OpenTelemetry-native observability</span>
+        <h1>Find and fix production issues in minutes, not hours.</h1>
+        <p class="lead">
+          InfoSof unifies logs, metrics, and traces in one fast platform, so your
+          team spends less time hunting across tools and more time shipping.
+        </p>
+        <div class="hero__actions">
+          <Button href="/contact/" variant="primary" size="lg">Start free trial</Button>
+          <Button href="/product/" variant="secondary" size="lg">See how it works</Button>
+        </div>
+        <p class="hero__note muted">Free 14-day trial. No credit card required.</p>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="terminal">
+          <div class="terminal__bar">
+            <span></span><span></span><span></span>
+            <p class="terminal__title">infosof · production</p>
+          </div>
+          <pre class="terminal__body"><code><span class="c-dim">$</span> infosof trace <span class="c-acc">checkout-api</span>
+<span class="c-dim">→ following request 8f2a...c19</span>
+
+  api-gateway      <span class="c-ok">12ms</span>  ██
+  auth-service     <span class="c-ok">31ms</span>  ████
+  checkout-api    <span class="c-warn">842ms</span>  ██████████████
+  payments-db      <span class="c-ok">54ms</span>  ██████
+
+<span class="c-acc">↳ bottleneck:</span> checkout-api → serialize()
+<span class="c-dim">3 correlated logs · 1 deploy · 1 alert</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section trust">
+    <div class="container">
+      <p class="trust__label muted">Trusted by engineering teams at fast-moving companies</p>
+      <ul class="trust__logos" aria-label="Customer names">
+        <li>Northwind</li>
+        <li>Aperture</li>
+        <li>Volta</li>
+        <li>Meridian</li>
+        <li>Cobalt</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="features-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">One platform</span>
+        <h2 id="features-heading">Everything you need to understand production</h2>
+        <p class="lead">
+          Stop stitching together point tools. InfoSof brings the three pillars of
+          observability into a single, correlated view.
+        </p>
+      </div>
+      <ul class="grid grid--3" role="list">
+        {
+          features.map((f) => (
+            <li>
+              <FeatureCard
+                title={f.data.title}
+                summary={f.data.summary}
+                icon={f.data.icon}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section stats-section" aria-labelledby="stats-heading">
+    <div class="container">
+      <h2 id="stats-heading" class="visually-hidden">InfoSof by the numbers</h2>
+      <dl class="stats">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <dt class="stat__value">{s.value}</dt>
+              <dd class="stat__label muted">{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-heading">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Correlated by design</span>
+        <h2 id="how-heading">From symptom to root cause in three steps</h2>
+      </div>
+      <ol class="steps" role="list">
+        <li class="step">
+          <span class="step__num">1</span>
+          <h3>Spot the symptom</h3>
+          <p class="muted">An alert or dashboard flags a latency spike or error rate the moment it happens.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">2</span>
+          <h3>Follow the signal</h3>
+          <p class="muted">Jump straight from the metric to the exact traces and logs behind it, linked by trace ID and deploy.</p>
+        </li>
+        <li class="step">
+          <span class="step__num">3</span>
+          <h3>Ship the fix</h3>
+          <p class="muted">Confirm the root cause, deploy, and watch the same view turn green. No tab juggling required.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="quote-heading">
+    <div class="container container--narrow">
+      <h2 id="quote-heading" class="visually-hidden">What customers say</h2>
+      <figure class="quote">
+        <Icon name="bolt" size={28} />
+        <blockquote>
+          <p>
+            We cut our mean time to resolution roughly in half in the first month.
+            Having logs, metrics, and traces correlated in one place changed how
+            our on-call actually works.
+          </p>
+        </blockquote>
+        <figcaption>
+          <strong>Sarah Okafor</strong>, VP Engineering at Northwind
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <CtaBand
+    title="See InfoSof on your own data"
+    text="Spin up a workspace and start sending telemetry in minutes."
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-8) var(--space-7);
+    background-image: radial-gradient(
+      70% 60% at 15% -10%,
+      rgba(53, 214, 165, 0.1),
+      transparent 60%
+    );
+  }
+  .hero__inner {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+  .hero__copy {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .hero__note {
+    font-size: var(--text-sm);
+  }
+
+  .terminal {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: #0d1017;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .terminal__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .terminal__bar span {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+  .terminal__title {
+    margin-left: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+  .terminal__body {
+    margin: 0;
+    padding: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    overflow-x: auto;
+  }
+  .c-dim { color: var(--text-faint); }
+  .c-acc { color: var(--accent); }
+  .c-ok { color: var(--accent); }
+  .c-warn { color: #f0b429; }
+
+  .trust__label {
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+  .trust__logos {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-6);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--text-faint);
+    letter-spacing: -0.01em;
+  }
+
+  .section-head {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .grid--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-section .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+  .stat__value {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .stat__label {
+    font-size: var(--text-sm);
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+  }
+  .step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .step h3 {
+    font-size: var(--text-lg);
+  }
+
+  .quote {
+    text-align: center;
+    display: grid;
+    gap: var(--space-4);
+    justify-items: center;
+    color: var(--accent);
+  }
+  .quote blockquote {
+    margin: 0;
+  }
+  .quote blockquote p {
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--text);
+    line-height: var(--leading-snug);
+  }
+  .quote figcaption {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+  .quote figcaption strong {
+    color: var(--text);
+  }
+
+  @media (min-width: 40rem) {
+    .stats-section .stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 48rem) {
+    .grid--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 56rem) {
+    .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    .hero {
+      padding-block: var(--space-9) var(--space-8);
+    }
+  }
+</style>
