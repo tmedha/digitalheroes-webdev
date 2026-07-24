@@ -1,7 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Blog posts. Drop a new .md file in src/content/blog to publish a page.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
@@ -15,7 +14,6 @@ const blog = defineCollection({
   }),
 });
 
-// Product features. Add a .yml file to surface a new feature.
 const features = defineCollection({
   loader: glob({ pattern: '**/*.yml', base: './src/content/features' }),
   schema: z.object({
@@ -26,7 +24,6 @@ const features = defineCollection({
   }),
 });
 
-// Pricing tiers. Add or edit a .yml file to change the pricing table.
 const plans = defineCollection({
   loader: glob({ pattern: '**/*.yml', base: './src/content/plans' }),
   schema: z.object({
@@ -42,7 +39,6 @@ const plans = defineCollection({
   }),
 });
 
-// FAQ entries. Feeds the FAQ page and its FAQPage structured data.
 const faqs = defineCollection({
   loader: glob({ pattern: '**/*.yml', base: './src/content/faqs' }),
   schema: z.object({

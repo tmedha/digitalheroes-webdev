@@ -1,5 +1,3 @@
-// Rasterize the branded Open Graph card (1200x630) to public/og/default.png.
-// Run once with: node scripts/make-og.mjs
 import sharp from 'sharp';
 import { mkdir } from 'node:fs/promises';
 
