@@ -1,0 +1,21 @@
+{
+  "name": "infosof-web",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Marketing site for InfoSof, an observability platform.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.3.0",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource/jetbrains-mono": "^5.1.1",
+    "astro": "^5.6.1",
+    "sharp": "^0.33.5"
+  }
+}
