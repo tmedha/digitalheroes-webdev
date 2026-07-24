@@ -130,6 +130,11 @@ samp {
     padding-block: var(--space-8);
 }
 
+.section--tint {
+    background: var(--tint);
+    border-block: 1px solid var(--border);
+}
+
 @media (min-width: 48rem) {
     .section {
         padding-block: var(--space-9);
