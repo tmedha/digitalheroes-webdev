@@ -1,6 +1,4 @@
 title: One-click correlation
-summary: >-
-  Jump from a metric spike to the exact logs and traces behind it. InfoSof links
-  signals by service, deploy, and trace ID so root cause is a click away.
+summary: Jump from a metric spike straight to the exact logs and traces behind it.
 icon: search
 order: 5

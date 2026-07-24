@@ -1,6 +1,4 @@
 title: Unified log management
-summary: >-
-  Stream every log line into one searchable place. Full-text search across
-  terabytes returns in under a second, with live tail and structured filters.
+summary: Full-text search across terabytes of logs in under a second, with live tail.
 icon: logs
 order: 1

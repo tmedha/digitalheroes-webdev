@@ -1,6 +1,4 @@
 title: Smart alerting
-summary: >-
-  Detect anomalies automatically and route alerts to the right on-call engineer.
-  Group related signals so one incident is one page, not fifty.
+summary: Catch anomalies automatically and route each incident to the right on-call engineer.
 icon: alerts
 order: 4
