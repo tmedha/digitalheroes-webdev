@@ -37,7 +37,10 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__legal">
     <p class="muted">© {year} {site.legalName}. All rights reserved.</p>
-    <p class="muted">
+    <p class="muted site-footer__credit">
+      <a href="https://digitalheroesco.com/" rel="noopener">Built for Digital Heroes
+Training Task</a>
+      <span aria-hidden="true"> · </span>
       <a href={`mailto:${site.email}`}>{site.email}</a>
     </p>
   </div>
@@ -101,6 +104,13 @@ const year = new Date().getFullYear();
     padding-top: var(--space-5);
     border-top: 1px solid var(--border);
     font-size: var(--text-sm);
+  }
+  .site-footer__credit a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .site-footer__credit a:hover {
+    color: var(--accent);
   }
 
   @media (min-width: 56rem) {

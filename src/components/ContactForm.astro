@@ -56,6 +56,13 @@ import Button from './Button.astro';
     },
   ];
 
+  // Remember each field's original describedby (hints) so validation can
+  // toggle error references without dropping them.
+  rules.forEach(({ id }) => {
+    const input = document.getElementById(id);
+    if (input) input.dataset.describedby = input.getAttribute('aria-describedby') ?? '';
+  });
+
   function setError(id: string, message: string | null) {
     const input = document.getElementById(id) as
       | HTMLInputElement
@@ -64,14 +71,26 @@ import Button from './Button.astro';
     const error = document.getElementById(`${id}-error`);
     if (!input || !error) return;
 
+    // Preserve any existing hint reference and add/remove the error id.
+    const described = new Set(
+      (input.dataset.describedby ?? '').split(' ').filter(Boolean)
+    );
+
     if (message) {
       error.textContent = message;
       error.hidden = false;
       input.setAttribute('aria-invalid', 'true');
-      input.setAttribute('aria-describedby', `${id}-error`);
+      described.add(`${id}-error`);
     } else {
       error.hidden = true;
       input.removeAttribute('aria-invalid');
+      described.delete(`${id}-error`);
+    }
+
+    if (described.size) {
+      input.setAttribute('aria-describedby', [...described].join(' '));
+    } else {
+      input.removeAttribute('aria-describedby');
     }
   }
 
