@@ -29,7 +29,7 @@ const blogSchema = {
   canonical="/blog/"
   schema={blogSchema}
 >
-  <section class="section page-hero">
+  <section class="section page-hero hero-canvas">
     <div class="container">
       <span class="eyebrow">Blog</span>
       <h1>Notes on observability</h1>
@@ -71,11 +71,6 @@ const blogSchema = {
 <style>
   .page-hero {
     padding-block: var(--space-8) var(--space-6);
-    background-image: radial-gradient(
-      70% 60% at 15% -10%,
-      rgba(79, 70, 229, 0.08),
-      transparent 60%
-    );
   }
   .page-hero h1 {
     margin-block: var(--space-3);

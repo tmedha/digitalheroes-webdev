@@ -55,11 +55,12 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--primary {
-    background: var(--accent);
+    background: var(--gradient);
     color: var(--accent-contrast);
+    box-shadow: 0 2px 12px rgba(79, 70, 229, 0.28);
   }
   .btn--primary:hover {
-    background: var(--accent-strong);
+    filter: brightness(1.07) saturate(1.05);
     color: var(--accent-contrast);
   }
 

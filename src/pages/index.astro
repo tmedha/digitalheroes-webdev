@@ -33,11 +33,11 @@ const webSite = {
   canonical="/"
   schema={webSite}
 >
-  <section class="hero">
+  <section class="hero hero-canvas">
     <div class="container hero__inner">
       <div class="hero__copy">
         <span class="badge">OpenTelemetry-native observability</span>
-        <h1>Find and fix production issues in minutes, not hours.</h1>
+        <h1>Find and fix production issues in <span class="grad-text">minutes, not hours.</span></h1>
         <p class="lead">
           InfoSof unifies logs, metrics, and traces in one fast platform, so your
           team spends less time hunting across tools and more time shipping.
@@ -208,11 +208,6 @@ const webSite = {
 <style>
   .hero {
     padding-block: var(--space-8) var(--space-7);
-    background-image: radial-gradient(
-      70% 60% at 15% -10%,
-      rgba(79, 70, 229, 0.08),
-      transparent 60%
-    );
   }
   .hero__inner {
     display: grid;
