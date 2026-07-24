@@ -1,0 +1,168 @@
+---
+import Button from './Button.astro';
+---
+
+<form class="contact-form" novalidate aria-describedby="form-status">
+  <div class="field">
+    <label for="name">Full name</label>
+    <input id="name" name="name" type="text" autocomplete="name" required aria-required="true" />
+    <p class="field__error" id="name-error" hidden></p>
+  </div>
+
+  <div class="field">
+    <label for="email">Work email</label>
+    <input id="email" name="email" type="email" autocomplete="email" required aria-required="true" aria-describedby="email-hint" />
+    <p class="field__hint" id="email-hint">We will only use this to reply to you.</p>
+    <p class="field__error" id="email-error" hidden></p>
+  </div>
+
+  <div class="field">
+    <label for="company">Company <span class="field__optional">(optional)</span></label>
+    <input id="company" name="company" type="text" autocomplete="organization" />
+  </div>
+
+  <div class="field">
+    <label for="message">How can we help?</label>
+    <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+    <p class="field__error" id="message-error" hidden></p>
+  </div>
+
+  <Button type="submit" variant="primary" size="lg">Send message</Button>
+
+  <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const status = document.getElementById('form-status');
+
+  type Rule = { id: string; validate: (v: string) => string | null };
+
+  const rules: Rule[] = [
+    { id: 'name', validate: (v) => (v.trim() ? null : 'Please enter your name.') },
+    {
+      id: 'email',
+      validate: (v) =>
+        !v.trim()
+          ? 'Please enter your email.'
+          : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+            ? null
+            : 'Please enter a valid email address.',
+    },
+    {
+      id: 'message',
+      validate: (v) =>
+        v.trim().length >= 10 ? null : 'Please tell us a little more (at least 10 characters).',
+    },
+  ];
+
+  function setError(id: string, message: string | null) {
+    const input = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | null;
+    const error = document.getElementById(`${id}-error`);
+    if (!input || !error) return;
+
+    if (message) {
+      error.textContent = message;
+      error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', `${id}-error`);
+    } else {
+      error.hidden = true;
+      input.removeAttribute('aria-invalid');
+    }
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let firstInvalid: HTMLElement | null = null;
+
+    for (const rule of rules) {
+      const input = document.getElementById(rule.id) as HTMLInputElement | null;
+      const message = rule.validate(input?.value ?? '');
+      setError(rule.id, message);
+      if (message && !firstInvalid) firstInvalid = input;
+    }
+
+    if (firstInvalid) {
+      if (status) status.textContent = '';
+      firstInvalid.focus();
+      return;
+    }
+
+    // Accessible demo: no backend. Show a success state in place of the form.
+    form.reset();
+    if (status) {
+      status.textContent =
+        'Thanks! Your message has been received. Our team will reply within one business day.';
+      status.classList.add('form-status--success');
+    }
+    form.querySelectorAll('input, textarea, button').forEach((el) =>
+      (el as HTMLInputElement).setAttribute('disabled', 'true')
+    );
+  });
+</script>
+
+<style>
+  .contact-form {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .field {
+    display: grid;
+    gap: var(--space-2);
+  }
+  label {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+  .field__optional {
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    color: var(--text);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-faint);
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    border-color: var(--accent);
+    outline-offset: 0;
+  }
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+  .field__hint {
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+  }
+  .field__error {
+    font-size: var(--text-sm);
+    color: var(--danger);
+    font-weight: 500;
+  }
+  .form-status {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+  .form-status--success {
+    padding: var(--space-4);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-weight: 500;
+  }
+</style>

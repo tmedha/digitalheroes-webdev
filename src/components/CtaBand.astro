@@ -1,0 +1,54 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  text: string;
+}
+const { title, text } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>{title}</h2>
+        <p class="lead">{text}</p>
+      </div>
+      <div class="cta-band__actions">
+        <Button href="/contact/" variant="primary" size="lg">Start free trial</Button>
+        <Button href="/pricing/" variant="secondary" size="lg">View pricing</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    display: grid;
+    gap: var(--space-5);
+    padding: var(--space-7);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-image: radial-gradient(
+      60% 120% at 100% 0%,
+      var(--accent-soft),
+      transparent 70%
+    );
+  }
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  @media (min-width: 48rem) {
+    .cta-band {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+    }
+    .cta-band__actions {
+      justify-content: flex-end;
+    }
+  }
+</style>

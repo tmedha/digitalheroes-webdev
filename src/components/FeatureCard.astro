@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  icon: string;
+  /** Heading level so cards fit the page outline correctly. */
+  as?: 'h3' | 'h4';
+}
+const { title, summary, icon, as: Heading = 'h3' } = Astro.props;
+---
+
+<article class="feature-card">
+  <span class="feature-card__icon">
+    <Icon name={icon} size={22} />
+  </span>
+  <Heading class="feature-card__title">{title}</Heading>
+  <p class="muted">{summary}</p>
+</article>
+
+<style>
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    height: 100%;
+    transition: border-color 0.15s var(--ease), transform 0.15s var(--ease);
+  }
+  .feature-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+  .feature-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: var(--space-4);
+  }
+  .feature-card__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+</style>
