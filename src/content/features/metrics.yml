@@ -1,0 +1,6 @@
+title: High-resolution metrics
+summary: >-
+  Ingest millions of data points per second at one-second granularity. Build
+  queries with a familiar syntax and keep 15 months of history by default.
+icon: metrics
+order: 2

@@ -1,0 +1,6 @@
+question: How does InfoSof pricing work?
+answer: >-
+  Pricing is based on the volume of data you ingest and how long you retain it,
+  not on the number of hosts or seats. Every plan includes logs, metrics, and
+  tracing, so you never pay extra to unlock a pillar of observability.
+order: 1

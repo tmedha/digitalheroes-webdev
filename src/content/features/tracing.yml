@@ -1,0 +1,6 @@
+title: Distributed tracing
+summary: >-
+  Follow a request across every service and see exactly where latency is spent.
+  OpenTelemetry-native, so there is no proprietary agent to maintain.
+icon: traces
+order: 3

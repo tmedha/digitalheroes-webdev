@@ -1,0 +1,6 @@
+question: Does InfoSof support OpenTelemetry?
+answer: >-
+  InfoSof is OpenTelemetry-native. You can point any OTLP-compatible exporter at
+  our endpoint and start sending data in minutes, with no proprietary agent to
+  install or maintain.
+order: 3

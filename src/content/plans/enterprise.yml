@@ -1,0 +1,17 @@
+name: Enterprise
+order: 3
+price: 0
+priceUnit: custom
+currency: USD
+tagline: For organizations with compliance, scale, and support needs.
+cta:
+  label: Talk to sales
+  href: /contact/
+highlighted: false
+features:
+  - Unlimited log ingest and metric series
+  - 15-month data retention
+  - Unlimited team members
+  - SSO, SAML, and audit logs
+  - Dedicated support with a 99.9% uptime SLA
+  - Single-tenant and BYOC deployment options

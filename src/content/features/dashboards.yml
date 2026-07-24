@@ -1,0 +1,6 @@
+title: Shareable dashboards
+summary: >-
+  Compose dashboards from any signal and share them with a link. Templating and
+  version history mean a whole team can build on the same source of truth.
+icon: dashboards
+order: 6

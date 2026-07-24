@@ -1,0 +1,18 @@
+name: Team
+order: 2
+price: 90
+priceUnit: /month
+currency: USD
+tagline: For growing engineering teams running real production workloads.
+cta:
+  label: Start free trial
+  href: /contact/
+highlighted: true
+features:
+  - 500 GB log ingest per month
+  - 250,000 metric series
+  - Distributed tracing included
+  - 90-day data retention
+  - 20 team members
+  - Smart alerting and on-call routing
+  - Email and chat support

@@ -1,0 +1,16 @@
+name: Starter
+order: 1
+price: 0
+priceUnit: /month
+currency: USD
+tagline: For small teams getting their first signals in place.
+cta:
+  label: Start free
+  href: /contact/
+highlighted: false
+features:
+  - 50 GB log ingest per month
+  - 10,000 metric series
+  - 7-day data retention
+  - 3 team members
+  - Community support

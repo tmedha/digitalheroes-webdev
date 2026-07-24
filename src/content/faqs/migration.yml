@@ -1,0 +1,6 @@
+question: How hard is it to migrate from my current tool?
+answer: >-
+  Most teams are live within a day. Because InfoSof uses open standards, you
+  usually only change an exporter endpoint. Our team offers a guided migration
+  for Team and Enterprise customers at no extra cost.
+order: 4

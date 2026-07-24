@@ -1,0 +1,6 @@
+question: Can I control data retention?
+answer: >-
+  Yes. You can set retention per data type and per source, so high-value logs can
+  be kept for months while noisy debug data expires in days. This keeps costs
+  predictable without losing the signals that matter.
+order: 6

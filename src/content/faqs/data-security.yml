@@ -1,0 +1,6 @@
+question: How is my data secured?
+answer: >-
+  All data is encrypted in transit and at rest. InfoSof is SOC 2 Type II
+  certified, supports SSO and SAML on Enterprise plans, and offers single-tenant
+  and bring-your-own-cloud deployments for teams with strict residency needs.
+order: 5

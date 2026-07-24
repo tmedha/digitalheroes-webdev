@@ -1,0 +1,6 @@
+question: Can I run InfoSof in my own cloud?
+answer: >-
+  Enterprise customers can deploy InfoSof in a single-tenant environment or in
+  their own cloud account (BYOC) so data never leaves their infrastructure,
+  while still getting managed updates and support.
+order: 8
