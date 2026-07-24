@@ -50,21 +50,50 @@ const webSite = {
       </div>
 
       <div class="hero__visual" aria-hidden="true">
-        <div class="terminal">
-          <div class="terminal__bar">
-            <span></span><span></span><span></span>
-            <p class="terminal__title">infosof · production</p>
+        <div class="dashcard">
+          <div class="dashcard__head">
+            <div>
+              <p class="dashcard__title">checkout-api</p>
+              <p class="dashcard__sub">Production · last 30 min</p>
+            </div>
+            <span class="dashcard__live"><span class="dashcard__dot"></span>Live</span>
           </div>
-          <pre class="terminal__body"><code><span class="c-dim">$</span> infosof trace <span class="c-acc">checkout-api</span>
-<span class="c-dim">→ following request 8f2a...c19</span>
 
-  api-gateway      <span class="c-ok">12ms</span>  ██
-  auth-service     <span class="c-ok">31ms</span>  ████
-  checkout-api    <span class="c-warn">842ms</span>  ██████████████
-  payments-db      <span class="c-ok">54ms</span>  ██████
+          <div class="dashcard__chart">
+            <svg viewBox="0 0 320 130" preserveAspectRatio="none" role="presentation">
+              <defs>
+                <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--accent)" stop-opacity="0.22" />
+                  <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,92 L30,88 L60,94 L90,84 L120,90 L150,64 L180,26 L200,20 L220,46 L260,74 L290,80 L320,78 L320,130 L0,130 Z" fill="url(#area)" />
+              <path d="M0,92 L30,88 L60,94 L90,84 L120,90 L150,64 L180,26 L200,20 L220,46 L260,74 L290,80 L320,78" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="200" cy="20" r="4.5" fill="var(--accent)" stroke="#fff" stroke-width="2" />
+            </svg>
+          </div>
 
-<span class="c-acc">↳ bottleneck:</span> checkout-api → serialize()
-<span class="c-dim">3 correlated logs · 1 deploy · 1 alert</span></code></pre>
+          <div class="dashcard__stats">
+            <div class="dashstat">
+              <span class="dashstat__label">p95 latency</span>
+              <span class="dashstat__value">842ms</span>
+            </div>
+            <div class="dashstat">
+              <span class="dashstat__label">Error rate</span>
+              <span class="dashstat__value">0.4%</span>
+            </div>
+            <div class="dashstat">
+              <span class="dashstat__label">MTTR</span>
+              <span class="dashstat__value">12m</span>
+            </div>
+          </div>
+
+          <div class="dashcard__alert">
+            <span class="dashcard__check">
+              <Icon name="check" size={16} />
+            </span>
+            <span>Root cause found in <strong>checkout-api</strong></span>
+          </div>
         </div>
       </div>
     </div>
