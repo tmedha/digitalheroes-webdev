@@ -21,3 +21,9 @@ no page builders.
   no external requests. Home page Lighthouse (mobile): Performance 99,
   Accessibility 100, Best Practices 100, SEO 100.
 
+
+To hit Core Web Vitals in the green on mobile, the biggest decision was choosing Astro with static output, so every page ships as prerendered HTML with no server work and no client-side framework hydration on load. From there I kept JavaScript near zero: 
+the only scripts are a tiny mobile-nav toggle and the contact-form validation, so there is almost nothing to block the main thread. 
+I self-hosted the fonts instead of pulling from Google Fonts, which removes a render-blocking third-party request and helps LCP. 
+I deliberately avoided layout shift (CLS) by building the hero as CSS, SVG, and text rather than a large raster image, using inline SVG icons, and only referencing the Open Graph image in meta tags rather than rendering it on the page. Critical CSS is inlined automatically by Astro, the stylesheet itself is small hand-written CSS driven by design tokens rather than a heavy utility framework, and there are no external runtime requests at all, so the page paints fast and stays visually stable.
+
