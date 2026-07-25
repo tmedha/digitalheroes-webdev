@@ -4,7 +4,7 @@ Marketing site for **InfoSof**, a fictional B2B observability platform (logs,
 metrics, and traces). Built with [Astro](https://astro.build/) as a static site,
 no page builders.
 
-**Live URL:** [TBA]
+**Live URL:** [Infosof for Digital Heroes Assessment](infosof.vercel.app)
 
 ## Highlights
 
